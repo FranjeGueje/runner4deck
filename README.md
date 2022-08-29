@@ -65,8 +65,6 @@ No necesitas ser root. Este comando `install.sh` descarga el proyecto mediante g
 ## Ejecución
 Para la ejecución de runner4deck, corre directamente `runner4deck.sh` y te aparecerá el menú del asistente.
 
-## ¿Cómo se utiliza?
-
 # FAQ
 ## ¿Cómo se instala?
 Fácil: Abre un terminal/consola y ejecuta este comando:
