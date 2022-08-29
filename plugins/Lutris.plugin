@@ -1,0 +1,25 @@
+#! /bin/bash
+# RECORDATORIO: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
+
+#Juegos en Lutris
+
+##############################################################################################################################################################
+# AUTOR: Paco Guerrero <fjgj1@hotmail.com>
+# ABOUT: Plugin del proyecto runner4deck. Para los juegos de Lutris
+# REQUISITOS: Las variables del Script anterior se heredan. TAMBIÉN: NO podemos salir del script con ningún exit
+##############################################################################################################################################################
+
+JUEGOS=$(flatpak run net.lutris.Lutris -l 2>/dev/null |grep -v steam|cut -f1,2,5 -d '|')
+
+DATA=$(zenity --forms \
+        --title="runner4deck v$VERSION" --forms --width=1000 --height=400 \
+        --text="Se muestran los juegos instalados:\n\nID|NOMBRE|RUTA INSTALACION\n$JUEGOS" \
+        --add-combo="Seleccione ID de juego:" --combo-values="$(flatpak run net.lutris.Lutris -l 2>/dev/null |grep -v steam| cut -f1 -d '|' | tr '\n' '|' | tr -d ' ')")
+ans=$?
+if [ $ans -eq 0 ];then
+    EXE="env LUTRIS_SKIP_INIT=1 flatpak run net.lutris.Lutris lutris:rungameid/$DATA"
+    export EXE=$EXE
+    NAMEF=$(flatpak run net.lutris.Lutris -l 2>/dev/null |grep -v steam| grep "$DATA" | cut -f2 -d '|' | sed 's/[[:space:]]*$//' | sed 's/^[[:space:]]*//')
+    echo $NAMEF
+    export FNAME=$NAMEF
+fi
