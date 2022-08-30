@@ -5,14 +5,14 @@ _**Crea tus accesos directos a juegos desde tiendas oficiales y otras herramient
 
 ![EPIC](https://raw.githubusercontent.com/FranjeGueje/runner4deck/master/doc/Epic.png)
 
-Esta utilidad crea accesos directos a juegos instalados en otras herramientas/launchers. Actualmente, para lanzadores de tiendas oficiales como pueden ser Epic Games, GOG Galaxy y Origin, **runner4deck** puede crear accesos directos con extensión .runner que acceden directamente al juego. Sí, haciendo doble clic en estos archivos .runner arrancarás el juego.
+Esta utilidad crea accesos directos a juegos instalados en otras herramientas/launchers. Actualmente, para lanzadores de tiendas oficiales como pueden ser Epic Games, GOG Galaxy, Ubisoft Connect y Origin, **runner4deck** puede crear accesos directos con extensión .runner que acceden directamente al juego. Sí, haciendo doble clic en estos archivos .runner arrancarás el juego.
 
 Estos accesos directos se pueden agregar directamente a Steam de forma manual o como se recomienda en esta guía, se puede utilizar "Steam Rom Manager" para que los archivos .runner se añadan automáticamente con sus carátulas a Steam de forma directa. Además de los mencionados anteriormente, **runner4deck** también busca juegos instalados en Lutris (fuera de Proton) y permite agregarlos a Steam con sus imágenes.
 
 ## ¿Por qué esta herramienta?
 Al igual que más gente, odio los launchers en general. No me gusta ninguno. No me gusta tener un enorme número de tiendas y lanzadores para todos mis juegos. **runner4deck** busca poder añadir y  arrancar juegos directamente con su launcher por en segundo plano.
 
-Existen muchos launchers y herramientas en GNU Linux para descargar y ejecutar juegos de Epic, GOG, u Origin. Estas pueden ser: Lutris, Heroic,... Pero estas herramientas no son oficiales y características como guardado en la nube, descargas de algunos juegos, ... no funcionan correctamente. Por otro lado, si utilizamos el launcher oficial añadido a Steam como "Juego no Steam", todos sabemos las molestias que puede generar esto: tener un único lanzador para los juegos de Epic y tener que hacer clic con el dedo para ejecutarlos, además, ¡perdemos la posibilidad de crear distintos perfiles para juegos ya que el lanzador es el mismo para todos!
+Existen muchos launchers y herramientas en GNU Linux para descargar y ejecutar juegos de Epic, GOG, Originy Ubisoft. Estas pueden ser: Lutris, Heroic,... Pero estas herramientas no son oficiales y características como guardado en la nube, descargas de algunos juegos, ... no funcionan correctamente. Por otro lado, si utilizamos el launcher oficial añadido a Steam como "Juego no Steam", todos sabemos las molestias que puede generar esto: tener un único lanzador para los juegos de Epic y tener que hacer clic con el dedo para ejecutarlos, además, ¡perdemos la posibilidad de crear distintos perfiles para juegos ya que el lanzador es el mismo para todos!
 
 Sí o sí hay que tener launchers para descargar, hay que hacer login en el launcher oficial o en Heroic o donde sea, pero hay que hacerlo. ¿Cómo lo haría con este método? Sencillo, descarga en SteamOS los launcher para Windows (.exe o .msi) y añádelos a Steam como "Juego no Steam" con compatibilidad Proton.
 
@@ -21,7 +21,8 @@ Sí o sí hay que tener launchers para descargar, hay que hacer login en el laun
 **runner4deck** actualmente posee plugins para:
 - Epic Games Launcher (sobre Proton, añadido como "Juego no Steam"): busca y muestra todos los juegos instalados desde este sistema.
 - GOG Galaxy (sobre Proton, añadido como "Juego no Steam"): se debe de buscar el juego ya instalado manualmente y navegando en el asistente.
-- Origin (sobre Proton, añadido como "Juego no Steam"): se debe de buscar el juego ya instalado manualmente y navegando en el asistente.
+- Origin (sobre Proton, añadido como "Juego no Steam"): se debe de buscar la carpeta de instalación del juego ya instalado navegando en el asistente.
+- Ubisoft Connect (sobre Proton, añadido como "Juego no Steam"): se elige entre los juegos instalados.
 - Lutris: busca y muestra todos los juegos instalados desde esta herramienta.
 - ...
 - Es totalmente escalable: se podrá ampliar la funcionalidad y añadir nuevos plugins para otros launchers/herramientas. El siguiente plugin que estoy pensando sería para juegos portables... :)
