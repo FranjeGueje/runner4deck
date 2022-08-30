@@ -34,6 +34,11 @@ ID=$(zenity --title="runner4deck v$VERSION" --list --radiolist --width=1000 --he
         "${lista[@]}")
 
 if [ -n "$ID" ];then
+    zenity --info \
+       --title="runner4deck v$VERSION" \
+       --width=250 \
+       --text="Por favor, seleccione el directorio de instalación del juego, su carpeta raiz."
+       
     RUN=$(zenity --file-selection \
                 --title="runner4deck v$VERSION" \
                 --width=1000 --height=300 \
