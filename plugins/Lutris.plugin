@@ -20,6 +20,5 @@ if [ $ans -eq 0 ];then
     EXE="env LUTRIS_SKIP_INIT=1 flatpak run net.lutris.Lutris lutris:rungameid/$DATA"
     export EXE=$EXE
     NAMEF=$(flatpak run net.lutris.Lutris -l 2>/dev/null |grep -v steam| grep "$DATA" | cut -f2 -d '|' | sed 's/[[:space:]]*$//' | sed 's/^[[:space:]]*//')
-    echo $NAMEF
     export FNAME=$NAMEF
 fi

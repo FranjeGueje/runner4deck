@@ -40,16 +40,27 @@ if [ -n "$ID" ];then
     
     if [[ -n "$GAMES" ]] && [[ -n "$INSTALL" ]];then
         echo "Se han encontrado $GAMES y $INSTALL"
+        
+        GAMESF=$(echo "$GAMES"|tr '\n' '|')
+        GAMESF="${GAMESF%?}"
+
         DATA=$(zenity --forms \
             --title="runner4deck v$VERSION" --forms --width=1000 --height=400 \
             --text="Se muestran los juegos instalados:\n\nID:\n$GAMES\n\nRUTA INSTALACION:\n$INSTALL" \
-            --add-combo="Seleccione ID de juego:" --combo-values="$GAMES" );
+            --add-combo="Seleccione ID de juego:" --combo-values="$GAMESF" );
         
-        export EXE="uplay://launch/$DATA/0"
-        ID=$(basename "$ID")
-        export ID=$ID
-        $NA
-        export FNAME=$NAMEF
+        ans=$?
+        if [ $ans -eq 0 ]
+        then
+            export EXE="uplay://launch/$DATA/0"
+            ID=$(basename "$ID")
+            export ID=$ID
+            $NA
+            export FNAME=$NAMEF
+        else
+            echo "No has elegido ningún archivo"
+        fi
+
     else
         echo "No se han encontrado juegos automáticamente. Se lanza la selección manual del ejecutable."
         zenity --info \

@@ -1,5 +1,5 @@
 #! /bin/bash
-VERSION=0.1
+VERSION=0.2
 
 ##############################################################################################################################################################
 # AUTOR: Paco Guerrero <fjgj1@hotmail.com>
@@ -27,7 +27,6 @@ DPLUGIN="$DIRECTORIO"plugins/
 DGAMES="$DIRECTORIO"games/
 DBIN="$DIRECTORIO"bin/
 
-
 #
 # FUNCIONES PARA EL DESARROLLO DE LA APLICACION
 #
@@ -39,7 +38,7 @@ function checkInicial() {
     [ ! -d "$DGAMES" ] && echo "No existe el directorio de games." && ERROR=SI
     [ ! -d "$DBIN" ] && echo "No existe el directorio de ejectuables." && ERROR=SI
 
-    if [ -n "$ERROR" ];then
+    if [ -n "$ERROR" ]; then
         zenity --error \
             --title="runner4deck v$VERSION" \
             --width=250 \
@@ -51,28 +50,28 @@ function checkInicial() {
 # Función de bienvenida
 function bienVenida() {
     zenity --info \
-       --title="runner4deck v$VERSION" \
-       --width=250 \
-       --text="Bienvenido a runner4deck.\nPrograma para crear accesos rapidos a nuestros juegos favoritos.\n\nEl asistente se mostrara a continuacion. Siga las instrucciones."
+        --title="runner4deck v$VERSION" \
+        --width=250 \
+        --text="Bienvenido a runner4deck.\nPrograma para crear accesos rapidos a nuestros juegos favoritos.\n\nEl asistente se mostrara a continuacion. Siga las instrucciones."
 }
 
 # Función para seleccionar el plugin a ejecutar
 function seleccionaPlugin() {
     PLUG="$DPLUGIN*.plugin"
-    
+
     lista=()
-    for i in $PLUG;do
-        lista+=(FALSE "$(basename "$i")" "$(sed -n 4p "$i"|tr -d '#')")
+    for i in $PLUG; do
+        lista+=(FALSE "$(basename "$i")" "$(sed -n 4p "$i" | tr -d '#')")
     done
 
-    PLUGIN=$(zenity  --title="runner4deck v$VERSION" --list --radiolist --width=1000 --height=300 \
-            --text="Selecciona el plugin adecuado para elegir el juego deseado." \
-			--column="Select?"  \
-			--column="PLUGIN" \
-            --column="Descripcion" \
-			"${lista[@]}")
+    PLUGIN=$(zenity --title="runner4deck v$VERSION" --list --radiolist --width=1000 --height=300 \
+        --text="Selecciona el plugin adecuado para elegir el juego deseado." \
+        --column="Select?" \
+        --column="PLUGIN" \
+        --column="Descripcion" \
+        "${lista[@]}")
 
-    if [ -z "$PLUGIN" ];then
+    if [ -z "$PLUGIN" ]; then
         echo "No se selecciono ningun plugin. Saliendo"
         exit 3
     fi
@@ -91,14 +90,13 @@ function menuProton() {
 
     protones="${listaa%?}"
 
-
     if [ "$protones" == "" ]; then
         echo "No hay protones"
     else
-        
-        PROTON=$(zenity --title="runner4deck v$VERSION" --forms  --width=1000 --height=300 \
-                --text="Valores de Proton" \
-                --add-combo="Seleccione Proton:" --combo-values="$protones")
+
+        PROTON=$(zenity --title="runner4deck v$VERSION" --forms --width=1000 --height=300 \
+            --text="Valores de Proton" \
+            --add-combo="Seleccione Proton:" --combo-values="$protones")
 
         if [ -z "$PROTON" ]; then
             echo -ne "Se ha cancelado la eleccion de proton.\nSalimos."
@@ -108,7 +106,7 @@ function menuProton() {
 
 }
 #function menuProton() {
-    # Devolverá en una variable llamada RETURN el proton elegido. Si se cancela o no existen sera null
+# Devolverá en una variable llamada RETURN el proton elegido. Si se cancela o no existen sera null
 #    lista=()
 #    while IFS= read -r -d $'\0'; do
 #        lista+=(FALSE "$REPLY")
@@ -137,18 +135,18 @@ function menuProton() {
 # Función para seleccionar los flags o banderas para nuestro programa que se ejecuta en proton
 function menuFlags() {
     lista=()
-    
+
     num=$(dirname "$PROTON" | grep GE -c)
-    if [ ! "$num" -eq 0 ];then
+    if [ ! "$num" -eq 0 ]; then
         lista+=(TRUE "DXVK_ASYNC=1" "Sincronizacion asincrona. Mejora el rendimiento, pero pueden banearle en multijugador.")
     fi
 
     lista+=(TRUE "LANG=es_ES.UTF-8" "Idioma en Espanol. Se utilizara este locale.")
     lista+=(TRUE "gamemoderun" "Modo juego.")
-    
-    num="$(find /run/media -mindepth 1 -maxdepth 1 -type d | wc -l )"
-    if [ ! "$num" -eq 0 ];then
-        if [ "$num" -eq 1 ];then
+
+    num="$(find /run/media -mindepth 1 -maxdepth 1 -type d | wc -l)"
+    if [ ! "$num" -eq 0 ]; then
+        if [ "$num" -eq 1 ]; then
             num=$(find /run/media -mindepth 1 -maxdepth 1 -type d)
             lista+=(TRUE "STEAM_COMPAT_MOUNTS=$num" "Montar ubicacion como unidad.")
         else
@@ -160,11 +158,11 @@ function menuFlags() {
 
             num=
             num=$(zenity --title="runner4deck v$VERSION" --list --radiolist --width=1000 --height=300 \
-                    --text="Selecciona el directorio para montar la unidad en el juego. Es decir, la microsd." \
-                    --column="Select?" \
-                    --column="Directorio para mostrar la unidad" \
-                    "${lista2[@]}")
-            
+                --text="Selecciona el directorio para montar la unidad en el juego. Es decir, la microsd." \
+                --column="Select?" \
+                --column="Directorio para mostrar la unidad" \
+                "${lista2[@]}")
+
             if [ "$num" != "" ]; then
                 lista+=(TRUE "STEAM_COMPAT_MOUNTS=$num" "Montar ubicacion como unidad.")
             fi
@@ -172,12 +170,12 @@ function menuFlags() {
     fi
 
     num=$(zenity --title="runner4deck v$VERSION" --list --checklist --width=1000 --height=300 \
-            --text="Selecciona las variables/flags para correr el juego." \
-            --column="Select?" \
-            --column="FLAG" \
-            --column="Descripcion" \
-            "${lista[@]}")
-    
+        --text="Selecciona las variables/flags para correr el juego." \
+        --column="Select?" \
+        --column="FLAG" \
+        --column="Descripcion" \
+        "${lista[@]}")
+
     FLAGS=$(echo "$num" | tr '|' ' ')
 }
 
@@ -191,25 +189,24 @@ FLAGS: $FLAGS\n\n\nSeguro que quieres usar estos valores y continuar?"
         --cancel-label="Salir" \
         --text="${texto}"
     ans=$?
-    if [ ! $ans -eq 0 ]
-    then
+    if [ ! $ans -eq 0 ]; then
         echo "No quiere continuar. Salimos" && exit 3
     fi
 }
 
 # Función para pediro el nombre de archivo de salida .runner
 function pedirNombre() {
-    if [ -z "$NAMEF" ];then
+    if [ -z "$NAMEF" ]; then
         NAMEF=$(zenity --entry \
-                --title="runner4deck v$VERSION" --width=1000 --height=300 \
-                --ok-label="Aceptar" \
-                --text="Nombre del fichero/acceso directo: ")
+            --title="runner4deck v$VERSION" --width=1000 --height=300 \
+            --ok-label="Aceptar" \
+            --text="Nombre del fichero/acceso directo: ")
     fi
 
     #Si el nombre de fichero no tiene extensión .runner, se le añade
-    echo "$NAMEF" |grep .runner >/dev/null
+    echo "$NAMEF" | grep .runner >/dev/null
     ans=$?
-    if [ ! "$ans" -eq 0 ];then 
+    if [ ! "$ans" -eq 0 ]; then
         NAMEF=$NAMEF".runner"
     fi
 
@@ -220,12 +217,12 @@ function pedirNombre() {
 function guardarRunner() {
     echo -ne "#! /bin/bash\n\n# VARIABLES RUNNER\nexport PROTON=\"$PROTON\"\nexport EXE=\"$EXE\"\n\
 export ID=\"$ID\"\n\n# RESTO DE VARIABLES\n" | tee "$NAME"
-    
-    for i in $FLAGS;do
+
+    for i in $FLAGS; do
         echo "export $i" | tee -a "$NAME"
     done
 
-    if [ -n "$SIPROTON" ];then
+    if [ -n "$SIPROTON" ]; then
         echo -ne "\nsource $DBIN""runner.sh\n\nexit 0" | tee -a "$NAME"
     else
         echo -ne "\neval \$EXE\n\nexit 0" | tee -a "$NAME"
@@ -236,7 +233,7 @@ export ID=\"$ID\"\n\n# RESTO DE VARIABLES\n" | tee "$NAME"
 
 # Función para comprobar que se ha creado el fichero y despedirse
 function checkBye() {
-    if [ -f "$NAME" ];then
+    if [ -f "$NAME" ]; then
         zenity --info \
             --title="runner4deck v$VERSION" \
             --width=250 \
@@ -253,14 +250,14 @@ function checkBye() {
 # Función como postdata para abrir o no Steam Rom Manager
 function abrirSRM() {
     texto="Quieres abrir Steam Rom Manager?"
-    
+
     zenity --question \
         --title="runner4deck v$VERSION" \
         --width=250 \
         --ok-label="Abrir SRM" \
         --cancel-label="Salir" \
         --text="${texto}"
-    
+
     ans=$?
     if [ $ans -eq 0 ]; then
         flatpak run com.steamgriddb.steam-rom-manager
@@ -285,19 +282,19 @@ seleccionaPlugin
 # Paso 2 --> ejecutar ese plugin, le damos el control
 # shellcheck source=/dev/null
 source "$DPLUGIN$PLUGIN"
-if [ -z "$EXE" ];then
+if [ -z "$EXE" ]; then
     echo "El plugin no ha devuelto un ejecutable. Salimos"
     zenity --error \
-       --title="runner4deck v$VERSION" \
-       --width=250 \
-       --text="El plugin no ha devuelto ningun valor esperado."
+        --title="runner4deck v$VERSION" \
+        --width=250 \
+        --text="El plugin no ha devuelto ningun valor esperado."
     exit 2
 fi
 # Tenemos en la variable EXE el ejecutable.
 # Si es necesario, también se rellenan otras variables: PROTON, ID, ..
 
 # Paso 3 --> Si el plugin definió que es necesario un Proton, se pregunta por él
-if [ -n "$SIPROTON" ];then
+if [ -n "$SIPROTON" ]; then
     echo "Seleccionando proton."
     menuProton
     # En la variable PROTON tenemos el proton a elegir
