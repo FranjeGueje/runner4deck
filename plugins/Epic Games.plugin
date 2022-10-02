@@ -34,8 +34,8 @@ ID=$(zenity --title="runner4deck v$VERSION" --list --radiolist --width=1000 --he
         "${lista[@]}")
 
 if [ -n "$ID" ];then
-    NUM=$("$DBIN"./jq ". | length" "$ID/pfx/drive_c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat")
-    
+    NUM=$("$DBIN"./jq ".InstallationList | length" "$ID/pfx/drive_c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat")
+
     if [ "$NUM" == 0 ]; then
         zenity --error \
                 --title="runner4deck v$VERSION" \
@@ -44,7 +44,7 @@ if [ -n "$ID" ];then
     else
         lista=()
         for ((i = 0; i < NUM; i++)); do
-            fID=$("$DBIN"./jq -r ".InstallationList[$i].NamespaceId" "$ID/pfx/drive_c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat")
+            fID=$("$DBIN"./jq -r ".InstallationList[$i].AppName" "$ID/pfx/drive_c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat")
             fNAME=$(basename "$("$DBIN"./jq -r ".InstallationList[$i].InstallLocation" "$ID/pfx/drive_c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat")")
             lista+=(FALSE "$fID" "$fNAME")
         done

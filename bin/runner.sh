@@ -83,16 +83,16 @@ fi
 # Definimos el COMPATDATA a través del ID
 case "$ID" in
 O | o)
-    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/Games/Origin)"
+    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/.steam/root/steamapps/compatdata/Origin)"
     ;;
 E | e)
-    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/Games/Epic)"
+    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/.steam/root/steamapps/compatdata/Epic)"
     ;;
 G | g)
-    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/Games/GOG)"
+    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/.steam/root/steamapps/compatdata/GOG)"
     ;;
 U | u)
-    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/Games/Ubisoft)"
+    STEAM_COMPAT_DATA_PATH="$(readlink /home/deck/.steam/root/steamapps/compatdata/Ubisoft)"
     ;;
 *)
     STEAM_COMPAT_DATA_PATH="/home/deck/.local/share/Steam/steamapps/compatdata/$ID"
