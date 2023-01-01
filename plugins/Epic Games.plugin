@@ -12,26 +12,30 @@
 export SIPROTON=SI
 
 #Todos los IDs de compatdata
-COMPAT="$(find /home/deck/.local/share/Steam/steamapps/compatdata/ -mindepth 1 -maxdepth 1 -type d)"
+COMPAT="$(find "$HOME/.steam/steam/steamapps/compatdata/" -mindepth 1 -maxdepth 1 -type d)"
 
 #Primero de todo es buscar en los compatdata los que corresponden a Epic
-lista=()
+lista=();num=0
 for i in $COMPAT;do
     if [ -f "$i/pfx/drive_c/Program Files (x86)/Epic Games/Launcher/Engine/Binaries/Win64/EpicGamesLauncher.exe" ];then
         #Este ID sí tiene Epic Games
         fID=$(basename "$i")
-        fNAME=$(flatpak run com.github.Matoking.protontricks -l |grep "$fID")
+        fNAME=$(flatpak run com.github.Matoking.protontricks -l 2>/dev/null |grep "$fID")
         lista+=(FALSE "$i" "$fNAME")
+        num=$((num+1));ID=$i
     fi
 done
 
-# De todos los que hay, elegimos
-ID=$(zenity --title="runner4deck v$VERSION" --list --radiolist --width=1000 --height=300 \
-        --text="Selecciona el id del compatdata adecuado para elegir el juego deseado." \
-        --column="Select?"  \
-        --column="ID" \
-        --column="Descripcion (Protontricks)" \
-        "${lista[@]}")
+if [ "$num" -gt 1 ];then 
+    ID=
+    # De todos los que hay, elegimos
+    ID=$(zenity --title="runner4deck v$VERSION" --list --radiolist --width=1000 --height=300 \
+            --text="Selecciona el id del compatdata adecuado para elegir el juego deseado." \
+            --column="Select?"  \
+            --column="ID" \
+            --column="Descripcion (Protontricks)" \
+            "${lista[@]}" 2>/dev/null)
+fi
 
 if [ -n "$ID" ];then
     NUM=$("$DBIN"./jq ".InstallationList | length" "$ID/pfx/drive_c/ProgramData/Epic/UnrealEngineLauncher/LauncherInstalled.dat")
@@ -40,7 +44,7 @@ if [ -n "$ID" ];then
         zenity --error \
                 --title="runner4deck v$VERSION" \
                 --width=250 \
-                --text="No se encuentran juegos instalados en ese ID."
+                --text="No se encuentran juegos instalados en ese ID." 2>/dev/null
     else
         lista=()
         for ((i = 0; i < NUM; i++)); do
@@ -54,14 +58,14 @@ if [ -n "$ID" ];then
                 --column="Select?"  \
                 --column="Codename" \
                 --column="Instalacion" \
-                "${lista[@]}")
+                "${lista[@]}" 2>/dev/null)
         
         if [ -n "$RUN" ];then
             export EXE="com.epicgames.launcher://apps/$RUN?action=launch&silent=true"
             ID=$(basename "$ID")
             export ID=$ID
         else
-            echo cancelado
+            echo "(log) cancelado"
         fi
     fi
 fi
