@@ -1,11 +1,11 @@
 # runner4deck [BETA] - doc. en contrucción
-_**Crea tus accesos directos a juegos desde tiendas oficiales y otras herramientas en SteamOS.**_
+_**Crea tus accesos directos a juegos desde otras tiendas oficiales en SteamOS.**_
 
-![PLUGIN](https://raw.githubusercontent.com/FranjeGueje/runner4deck/master/doc/Plugins.png)
+#![PLUGIN](https://raw.githubusercontent.com/FranjeGueje/runner4deck/master/doc/Plugins.png)
 
-![EPIC](https://raw.githubusercontent.com/FranjeGueje/runner4deck/master/doc/Epic.png)
+#![EPIC](https://raw.githubusercontent.com/FranjeGueje/runner4deck/master/doc/Epic.png)
 
-Esta utilidad crea accesos directos a juegos instalados en otras herramientas/launchers. Actualmente, para lanzadores de tiendas oficiales como pueden ser Epic Games, GOG Galaxy, Ubisoft Connect y Origin, **runner4deck** puede crear accesos directos con extensión .runner que acceden directamente al juego. Sí, haciendo doble clic en estos archivos .runner arrancarás el juego.
+Esta utilidad crea accesos directos a juegos instalados en otras herramientas/launchers. Esta herramienta nació como experimiento para las tiendas de Epic, GOG, Lutris, Origin y Ubisoft. En la versión 0.2 funcionan correctamente, pero gracias a BoilR y a Heroic Games empecé a no añadir los juegos de las tiendas Epic, GOG, y Lutrix (acabé desinstalándolo por Bottles). Así que comencé a "desarmar" la aplicación y actualmente, solo conserva su utilidad para las tiendas oficiales de Ubisoft Connect y Origin, **runner4deck** puede crear accesos directos que acceden directamente al juego y además los añade a Steam.
 
 Estos accesos directos se pueden agregar directamente a Steam de forma manual o como se recomienda en esta guía, se puede utilizar "Steam Rom Manager" para que los archivos .runner se añadan automáticamente con sus carátulas a Steam de forma directa. Además de los mencionados anteriormente, **runner4deck** también busca juegos instalados en Lutris (fuera de Proton) y permite agregarlos a Steam con sus imágenes.
 

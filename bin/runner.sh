@@ -122,8 +122,6 @@ UBICACION="$(dirname "$EXE")"
 
 echo -ne "*********************\nProton: $PROTON\nEjecutable: $EXE\nUbicacion: $UBICACION\nBanderas: " "${FLAGS[@]}" "\n\
 MicroSD: $STEAM_COMPAT_MOUNTS\nSteam: $STEAM_COMPAT_CLIENT_INSTALL_PATH\nDataPath: $STEAM_COMPAT_DATA_PATH\nWinePrefix: $WINEPREFIX\n*********************"
-echo -ne "\n2 Segundos para lanzar el juego...\n"
-sleep 2
 echo -ne "\nLanzando el juego...\n"
 
 if [[ ! -d "$STEAM_COMPAT_DATA_PATH" ]] || [[ ! -d "$STEAM_COMPAT_CLIENT_INSTALL_PATH" ]] || [[ ! -d "$WINEPREFIX" ]] || \
