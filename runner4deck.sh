@@ -150,10 +150,10 @@ function menuProton() {
     listaa=""
     while IFS= read -r -d $'\0'; do
         listaa+="$REPLY|"
-    done < <(find "$HOME/.local/share/Steam/compatibilitytools.d/" -name "proton" -print0)
+    done < <(find -L "$HOME/.local/share/Steam/compatibilitytools.d/" -maxdepth 2 -name "proton" -type f -print0)
     while IFS= read -r -d $'\0'; do
         listaa+="$REPLY|"
-    done < <(find "$HOME/.local/share/Steam/steamapps/common/" -name "proton" -print0)
+    done < <(find -L "$HOME/.local/share/Steam/steamapps/common/" -maxdepth 2 -name "proton" -type f -print0)
     
     protones="${listaa%?}"
     
@@ -204,6 +204,7 @@ function mostrarConfirmar() {
         cp "$NAMETEMP" "$NAME" && chmod +x "$NAME"
         [ -n "$DEBUG" ] && echo "(log) Creado el lanzador del juego en $NAME."
         aniadirSteam
+        sleep 2
     fi
     
 }
